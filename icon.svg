@@ -1,38 +1,104 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <radialGradient id="bg" cx="35%" cy="28%" r="85%">
-      <stop offset="0" stop-color="#9b55e0"/>
-      <stop offset="0.55" stop-color="#5e2192"/>
-      <stop offset="1" stop-color="#2a0b45"/>
+    <radialGradient id="bg" cx="32%" cy="26%" r="90%">
+      <stop offset="0" stop-color="#a868e8"/>
+      <stop offset="0.5" stop-color="#5e2192"/>
+      <stop offset="1" stop-color="#22083a"/>
     </radialGradient>
-    <linearGradient id="gold" gradientUnits="userSpaceOnUse" x1="0" y1="170" x2="0" y2="350">
-      <stop offset="0" stop-color="#fbe39a"/>
-      <stop offset="0.5" stop-color="#e6b347"/>
-      <stop offset="1" stop-color="#a8741c"/>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#f6d77c" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#f6d77c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" gradientUnits="userSpaceOnUse" x1="0" y1="180" x2="0" y2="330">
+      <stop offset="0" stop-color="#fff0b8"/>
+      <stop offset="0.35" stop-color="#f0c35a"/>
+      <stop offset="0.7" stop-color="#c8902a"/>
+      <stop offset="1" stop-color="#8a5a14"/>
     </linearGradient>
-    <linearGradient id="bell" gradientUnits="userSpaceOnUse" x1="310" y1="0" x2="400" y2="0">
-      <stop offset="0" stop-color="#d9a33c"/>
-      <stop offset="1" stop-color="#fbe39a"/>
+    <linearGradient id="bellOut" gradientUnits="userSpaceOnUse" x1="0" y1="125" x2="0" y2="385">
+      <stop offset="0" stop-color="#fff0b8"/>
+      <stop offset="0.3" stop-color="#f0c35a"/>
+      <stop offset="0.65" stop-color="#d49a32"/>
+      <stop offset="1" stop-color="#7d5010"/>
     </linearGradient>
+    <radialGradient id="bellIn" cx="40%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#3a1260"/>
+      <stop offset="0.7" stop-color="#7a4a12"/>
+      <stop offset="1" stop-color="#e0aa45"/>
+    </radialGradient>
+    <linearGradient id="flag" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8b3fd0"/>
+      <stop offset="1" stop-color="#3e0f66"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#12021f" flood-opacity="0.55"/>
+    </filter>
   </defs>
+
   <rect width="512" height="512" fill="url(#bg)"/>
-  <g transform="translate(-14 0)">
-    <!-- ondas de sonido -->
-    <g fill="none" stroke="#e9d5ff" stroke-linecap="round">
-      <path d="M432 214 q16 42 0 84" stroke-width="13" opacity="0.9"/>
-      <path d="M460 190 q28 66 0 132" stroke-width="11" opacity="0.55"/>
+  <!-- pentagrama de fondo -->
+  <g stroke="#ffffff" stroke-opacity="0.07" stroke-width="3">
+    <path d="M0 96 H512 M0 120 H512 M0 144 H512 M0 168 H512 M0 192 H512"/>
+  </g>
+  <circle cx="300" cy="250" r="210" fill="url(#glow)"/>
+
+  <g filter="url(#shadow)">
+    <!-- banderín de la banda -->
+    <path d="M150 318 H290 V412 L220 440 L150 412 Z" fill="url(#flag)" stroke="#e6b347" stroke-width="5"/>
+    <path d="M150 412 L220 440 L290 412" fill="none" stroke="#fbe39a" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>
+    <path d="M150 318 L144 330 M290 318 L296 330" stroke="#e6b347" stroke-width="5" stroke-linecap="round"/>
+    <!-- nota musical en el banderín -->
+    <g fill="#fbe39a">
+      <ellipse cx="208" cy="396" rx="13" ry="10" transform="rotate(-20 208 396)"/>
+      <rect x="217" y="348" width="6" height="48" rx="2"/>
+      <path d="M223 348 c14 6 22 14 18 30 c-2 -10 -8 -14 -18 -16 z"/>
     </g>
-    <!-- tubo enrollado -->
-    <rect x="104" y="196" width="230" height="124" rx="62" fill="none" stroke="url(#gold)" stroke-width="22"/>
-    <!-- tudel y boquilla -->
-    <path d="M92 320 H230" stroke="#c8902a" stroke-width="20" stroke-linecap="round"/>
-    <path d="M58 306 h22 a6 6 0 0 1 6 6 v16 a6 6 0 0 1 -6 6 h-22 z" fill="#fbe39a"/>
+
+    <!-- tubo enrollado: contorno, cuerpo dorado y brillo -->
+    <rect x="104" y="188" width="226" height="128" rx="64" fill="none" stroke="#6e460c" stroke-width="28"/>
+    <rect x="104" y="188" width="226" height="128" rx="64" fill="none" stroke="url(#gold)" stroke-width="21"/>
+    <path d="M168 181 H266 A60 60 0 0 1 320 214" fill="none" stroke="#fffbe6" stroke-opacity="0.75" stroke-width="4" stroke-linecap="round"/>
+    <path d="M100 246 A60 60 0 0 1 128 200" fill="none" stroke="#fffbe6" stroke-opacity="0.5" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- tudel hasta la boquilla -->
+    <path d="M78 316 H230" stroke="#6e460c" stroke-width="24" stroke-linecap="round"/>
+    <path d="M78 316 H230" stroke="#e0aa45" stroke-width="17" stroke-linecap="round"/>
+    <path d="M84 311 H226" stroke="#fff0b8" stroke-opacity="0.8" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- boquilla -->
+    <path d="M40 300 C52 300 58 308 70 309 V323 C58 324 52 332 40 332 Z" fill="#f0c35a" stroke="#6e460c" stroke-width="4" stroke-linejoin="round"/>
+    <ellipse cx="40" cy="316" rx="5" ry="16" fill="#fff0b8" stroke="#6e460c" stroke-width="3"/>
+
+    <!-- abrazaderas -->
+    <g fill="#fff0b8" stroke="#6e460c" stroke-width="3">
+      <rect x="150" y="303" width="12" height="27" rx="3"/>
+      <rect x="244" y="174" width="12" height="28" rx="3"/>
+      <rect x="244" y="302" width="12" height="28" rx="3"/>
+    </g>
+
+    <!-- llave (Do/Reb) -->
+    <rect x="186" y="150" width="26" height="44" rx="6" fill="url(#gold)" stroke="#6e460c" stroke-width="4"/>
+    <rect x="182" y="146" width="34" height="10" rx="4" fill="#fff0b8" stroke="#6e460c" stroke-width="3"/>
+    <circle cx="199" cy="130" r="17" fill="#fff0b8" stroke="#6e460c" stroke-width="4"/>
+    <circle cx="199" cy="130" r="8" fill="#e0aa45"/>
+    <path d="M199 146 V150" stroke="#6e460c" stroke-width="6"/>
+
     <!-- campana -->
-    <path d="M314 185 C350 185 378 160 402 128 C407 122 414 125 414 132 V380 C414 387 407 390 402 384 C378 352 350 331 314 331 Z" fill="url(#bell)"/>
-    <ellipse cx="412" cy="256" rx="11" ry="126" fill="#a8741c"/>
-    <ellipse cx="413" cy="256" rx="5" ry="112" fill="#3d1263" opacity="0.6"/>
-    <!-- llave -->
-    <rect x="196" y="160" width="22" height="38" rx="7" fill="#e6b347"/>
-    <circle cx="207" cy="152" r="15" fill="#fbe39a" stroke="#a8741c" stroke-width="5"/>
+    <path d="M318 182 C354 182 382 160 404 124 C408 118 418 120 420 128 L420 384 C418 392 408 394 404 388 C382 352 354 322 318 322 Z"
+          fill="url(#bellOut)" stroke="#6e460c" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M330 194 C362 192 384 172 402 146" fill="none" stroke="#fffbe6" stroke-opacity="0.8" stroke-width="5" stroke-linecap="round"/>
+    <rect x="310" y="176" width="16" height="152" rx="5" fill="#fff0b8" stroke="#6e460c" stroke-width="4"/>
+    <ellipse cx="420" cy="256" rx="20" ry="132" fill="#f0c35a" stroke="#6e460c" stroke-width="5"/>
+    <ellipse cx="421" cy="256" rx="12" ry="118" fill="url(#bellIn)"/>
+  </g>
+
+  <!-- ondas de sonido -->
+  <g fill="none" stroke="#f3e6ff" stroke-linecap="round">
+    <path d="M456 208 q18 48 0 96" stroke-width="10" opacity="0.9"/>
+    <path d="M480 184 q30 72 0 144" stroke-width="8" opacity="0.5"/>
+  </g>
+  <!-- destellos -->
+  <g fill="#fff6d6">
+    <path d="M372 92 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5 z" opacity="0.9"/>
+    <path d="M96 140 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" opacity="0.7"/>
   </g>
 </svg>
