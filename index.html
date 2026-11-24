@@ -141,6 +141,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
     <h2>Clasificación</h2>
     <ol id="boardList"><li><span></span><span class="nm">Cargando…</span></li></ol>
     <p class="hint" style="margin-top:8px">Ordenada por mejor racha. Se actualiza al acertar o fallar.</p>
+    <p class="hint" id="saveState" style="margin-top:4px"></p>
   </section>
 
   <details id="settings">
@@ -456,7 +457,8 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
       user_id: me.id, username: row.username, best_streak: row.best_streak,
       correct: row.correct, answered: row.answered, updated_at: new Date().toISOString()
     });
-    if(!error) loadBoard();
+    $("saveState").textContent = error ? "No se ha podido guardar tu progreso: " + (error.message || error.code || "error desconocido") : "Progreso guardado.";
+    loadBoard();
   }
 
   async function loadBoard(){
@@ -467,7 +469,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
     list.textContent = "";
     if(error || !data || !data.length){
       const li = document.createElement("li"); li.innerHTML = '<span></span><span class="nm"></span>';
-      li.querySelector(".nm").textContent = error ? "No se pudo cargar la clasificación." : "Todavía nadie ha jugado. ¡Sé el primero!";
+      li.querySelector(".nm").textContent = error ? "No se pudo cargar la clasificación: " + (error.message || error.code || "") : "Todavía nadie ha jugado. ¡Sé el primero!";
       list.appendChild(li); return;
     }
     data.forEach((p,i) => {
