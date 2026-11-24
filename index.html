@@ -109,6 +109,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
     <p class="hint">Entra con el usuario y la contraseña que te ha dado tu banda.</p>
     <label>Usuario<input id="lgUser" autocomplete="username" autocapitalize="none" required></label>
     <label>Contraseña<input id="lgPass" type="password" autocomplete="current-password" required></label>
+    <label class="chk" style="flex-direction:row;font-weight:500"><input type="checkbox" id="lgRemember" checked> Mantener la sesión iniciada</label>
     <p class="err" id="lgErr"></p>
     <button class="primary" type="submit" id="lgBtn">Entrar</button>
   </form>
@@ -419,7 +420,16 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   const DOMINIO = "dulcenombre.com"; // los usuarios se crean en Supabase como <usuario>@dulcenombre.com
 
   const $ = id => document.getElementById(id);
-  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  // "Mantener la sesión iniciada": con la casilla marcada la sesión se guarda en el navegador;
+  // sin marcar, solo dura hasta cerrar la pestaña o la app
+  const safe = f => { try { return f(); } catch(e) { return null; } };
+  const remember = () => safe(() => localStorage.getItem("corneta:remember")) !== "0";
+  const storage = {
+    getItem: k => safe(() => localStorage.getItem(k)) ?? safe(() => sessionStorage.getItem(k)),
+    setItem: (k, v) => { const st = remember() ? localStorage : sessionStorage; safe(() => st.setItem(k, v)); },
+    removeItem: k => { safe(() => localStorage.removeItem(k)); safe(() => sessionStorage.removeItem(k)); }
+  };
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { storage, persistSession: true } });
   let me = null, row = null, saveTimer = null;
 
   const cap = n => n ? n.charAt(0).toUpperCase() + n.slice(1) : n;
@@ -447,10 +457,12 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
     $("lgErr").textContent = ""; $("lgBtn").disabled = true;
     const u = $("lgUser").value.trim().toLowerCase();
     const email = u.includes("@") ? u : u + "@" + DOMINIO;
+    safe(() => localStorage.setItem("corneta:remember", $("lgRemember").checked ? "1" : "0"));
     const { data, error } = await sb.auth.signInWithPassword({ email, password: $("lgPass").value });
     $("lgBtn").disabled = false;
     if(error){ $("lgErr").textContent = "Usuario o contraseña incorrectos. Pídeselos de nuevo a quien te dio la cuenta."; return; }
     $("lgPass").value = "";
+    if(!remember()){ for(const k of Object.keys(localStorage)) if(k.startsWith("sb-")) safe(() => localStorage.removeItem(k)); }
     start(data.session);
   });
   $("logout").addEventListener("click", async () => { await sb.auth.signOut(); start(null); });
