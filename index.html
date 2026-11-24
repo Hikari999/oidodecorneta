@@ -121,7 +121,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   <div class="score">
     <div class="stat"><b id="sCorrect">0</b><small>Aciertos</small></div>
     <div class="stat"><b id="sStreak">0</b><small>Racha</small></div>
-    <div class="stat"><b id="sBest">0</b><small>Mejor racha</small></div>
+    <div class="stat"><b id="sBest">0</b><small>Mejor racha (completo)</small></div>
   </div>
 
   <div class="stage">
@@ -140,7 +140,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   <section class="board">
     <h2>Clasificación</h2>
     <ol id="boardList"><li><span></span><span class="nm">Cargando…</span></li></ol>
-    <p class="hint" style="margin-top:8px">Ordenada por mejor racha. Se actualiza al acertar o fallar.</p>
+    <p class="hint" style="margin-top:8px">Ordenada por mejor racha. La racha solo cuenta jugando con el registro completo (nivel Completo, todas las notas).</p>
     <p class="hint" id="saveState" style="margin-top:4px"></p>
   </section>
 
@@ -334,7 +334,8 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
     const right = id===st.current.id;
     if(right){
       st.correct++; st.streak++;
-      if(st.streak>st.best){st.best=st.streak;store.set("best",st.best)}
+      // La mejor racha solo cuenta jugando con todas las notas (registro completo)
+      if(st.active.length===NOTES.length && st.streak>st.best){st.best=st.streak;store.set("best",st.best)}
       btn.classList.add("ok");
       msg("¡Bien! Era " + label(st.current) + ".","ok");
     } else {
