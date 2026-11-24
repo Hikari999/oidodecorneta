@@ -45,40 +45,38 @@
   <ellipse cx="248" cy="462" rx="150" ry="18" fill="#12021f" opacity="0.45"/>
 
   <g filter="url(#shadow)">
-    <!-- lazo grande: sube por la izquierda, curva arriba y baja por la derecha -->
-    <path d="M232 300 V176 A62 62 0 0 1 356 176 V318 A46 46 0 0 1 310 364 H296"
-          fill="none" stroke="#3d3f4c" stroke-width="40" stroke-linecap="round"/>
-    <path d="M232 300 V176 A62 62 0 0 1 356 176 V318 A46 46 0 0 1 310 364 H296"
-          fill="none" stroke="#b9bccb" stroke-width="32" stroke-linecap="round"/>
-    <path d="M226 290 V176 A68 68 0 0 1 262 116" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
-    <path d="M318 122 A62 62 0 0 1 350 170 V316" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
-    <path d="M364 182 V318" stroke="#5a5c6c" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
-
-    <!-- tramo recto izquierdo y derecho con brillo cilíndrico -->
-    <rect x="216" y="176" width="32" height="140" fill="url(#chromeV)"/>
-    <rect x="340" y="176" width="32" height="142" fill="url(#chromeV)"/>
-
+    <!-- lazo grande con sombreado uniforme de tubo -->
+    <path d="M232 300 V176 A62 62 0 0 1 356 176 V318 A46 46 0 0 1 310 364 H296" fill="none" stroke="#3d3f4c" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M232 300 V176 A62 62 0 0 1 356 176 V318 A46 46 0 0 1 310 364 H296" fill="none" stroke="#8a8da0" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M232 300 V176 A62 62 0 0 1 356 176 V318 A46 46 0 0 1 310 364 H296" fill="none" stroke="#b8bbca" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M232 300 V176 A62 62 0 0 1 356 176 V318 A46 46 0 0 1 310 364 H296" fill="none" stroke="#dcdde6" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M232 300 V176 A62 62 0 0 1 356 176 V318 A46 46 0 0 1 310 364 H296" fill="none" stroke="#f4f5f9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
     <!-- anillas decorativas en el tramo derecho -->
-    <g fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="2">
-      <rect x="334" y="250" width="44" height="7" rx="3"/>
-      <rect x="334" y="260" width="44" height="7" rx="3"/>
-      <rect x="334" y="270" width="44" height="7" rx="3"/>
-      <rect x="334" y="280" width="44" height="7" rx="3"/>
+    <g stroke="#3d3f4c" stroke-width="2">
+      <rect x="334" y="250" width="44" height="7" rx="3" fill="#dcdde6"/>
+      <rect x="334" y="260" width="44" height="7" rx="3" fill="#c4c6d3"/>
+      <rect x="334" y="270" width="44" height="7" rx="3" fill="#dcdde6"/>
+      <rect x="334" y="280" width="44" height="7" rx="3" fill="#c4c6d3"/>
     </g>
-
     <!-- tudel y boquilla -->
-    <rect x="196" y="98" width="14" height="190" rx="5" fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="2"/>
-    <rect x="190" y="150" width="26" height="12" rx="4" fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="2"/>
-    <path d="M190 98 C190 84 194 62 203 52 C212 62 216 84 216 98 Z" fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="2.5"/>
-    <ellipse cx="203" cy="52" rx="16" ry="6" fill="url(#rim)" stroke="#3d3f4c" stroke-width="2.5"/>
+    <path d="M203 286 V100" fill="none" stroke="#3d3f4c" stroke-width="16" stroke-linecap="butt" stroke-linejoin="round"/>
+    <path d="M203 286 V100" fill="none" stroke="#8a8da0" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/>
+    <path d="M203 286 V100" fill="none" stroke="#b8bbca" stroke-width="4" stroke-linecap="butt" stroke-linejoin="round"/>
+    <path d="M203 286 V100" fill="none" stroke="#dcdde6" stroke-width="-2" stroke-linecap="butt" stroke-linejoin="round"/>
+    <path d="M203 286 V100" fill="none" stroke="#f4f5f9" stroke-width="2" stroke-linecap="butt" stroke-linejoin="round"/>
+    <rect x="190" y="150" width="26" height="12" rx="4" fill="#dcdde6" stroke="#3d3f4c" stroke-width="2"/>
+    <path d="M190 100 C190 84 194 62 203 52 C212 62 216 84 216 100 Z" fill="#dcdde6" stroke="#3d3f4c" stroke-width="2.5"/>
+    <path d="M197 96 C197 84 199 70 203 60" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="203" cy="52" rx="16" ry="6" fill="#eef0f6" stroke="#3d3f4c" stroke-width="2.5"/>
     <ellipse cx="203" cy="52" rx="8" ry="2.5" fill="#2b2140"/>
 
     <!-- llave rotativa (Do/Reb) con su vuelta corta -->
-    <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338"
-          fill="none" stroke="#3d3f4c" stroke-width="22" stroke-linecap="round"/>
-    <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338"
-          fill="none" stroke="#c9cbd6" stroke-width="15" stroke-linecap="round"/>
-    <circle cx="288" cy="352" r="26" fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="3"/>
+    <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338" fill="none" stroke="#3d3f4c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338" fill="none" stroke="#8a8da0" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338" fill="none" stroke="#b8bbca" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338" fill="none" stroke="#dcdde6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338" fill="none" stroke="#f4f5f9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="288" cy="352" r="26" fill="#c4c6d3" stroke="#3d3f4c" stroke-width="3"/>
     <circle cx="288" cy="352" r="16" fill="#e6e7ef" stroke="#7d8094" stroke-width="2"/>
     <g fill="#5c5f6e"><circle cx="281" cy="346" r="3"/><circle cx="295" cy="346" r="3"/><circle cx="288" cy="360" r="3"/></g>
     <path d="M276 340 A16 16 0 0 1 300 340" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.9"/>
@@ -95,6 +93,5 @@
   <g fill="#fff6d6">
     <path d="M404 96 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6 z" opacity="0.95"/>
     <path d="M112 170 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z" opacity="0.75"/>
-    <path d="M420 330 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" opacity="0.6"/>
   </g>
 </svg>
