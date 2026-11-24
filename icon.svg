@@ -59,16 +59,16 @@
       <rect x="334" y="280" width="44" height="7" rx="3" fill="#c4c6d3"/>
     </g>
     <!-- tudel y boquilla -->
-    <path d="M203 286 V100" fill="none" stroke="#3d3f4c" stroke-width="16" stroke-linecap="butt" stroke-linejoin="round"/>
-    <path d="M203 286 V100" fill="none" stroke="#8a8da0" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/>
-    <path d="M203 286 V100" fill="none" stroke="#b8bbca" stroke-width="4" stroke-linecap="butt" stroke-linejoin="round"/>
-    <path d="M203 286 V100" fill="none" stroke="#dcdde6" stroke-width="-2" stroke-linecap="butt" stroke-linejoin="round"/>
-    <path d="M203 286 V100" fill="none" stroke="#f4f5f9" stroke-width="2" stroke-linecap="butt" stroke-linejoin="round"/>
-    <rect x="190" y="150" width="26" height="12" rx="4" fill="#dcdde6" stroke="#3d3f4c" stroke-width="2"/>
-    <path d="M190 100 C190 84 194 62 203 52 C212 62 216 84 216 100 Z" fill="#dcdde6" stroke="#3d3f4c" stroke-width="2.5"/>
-    <path d="M197 96 C197 84 199 70 203 60" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-    <ellipse cx="203" cy="52" rx="16" ry="6" fill="#eef0f6" stroke="#3d3f4c" stroke-width="2.5"/>
-    <ellipse cx="203" cy="52" rx="8" ry="2.5" fill="#2b2140"/>
+    <path d="M232 146 V100" fill="none" stroke="#3d3f4c" stroke-width="16" stroke-linecap="butt" stroke-linejoin="round"/>
+    <path d="M232 146 V100" fill="none" stroke="#8a8da0" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/>
+    <path d="M232 146 V100" fill="none" stroke="#b8bbca" stroke-width="4" stroke-linecap="butt" stroke-linejoin="round"/>
+    <path d="M232 146 V100" fill="none" stroke="#dcdde6" stroke-width="-2" stroke-linecap="butt" stroke-linejoin="round"/>
+    <path d="M232 146 V100" fill="none" stroke="#f4f5f9" stroke-width="2" stroke-linecap="butt" stroke-linejoin="round"/>
+    <rect x="217" y="140" width="30" height="12" rx="4" fill="#dcdde6" stroke="#3d3f4c" stroke-width="2"/>
+    <path d="M219 100 C219 84 223 62 232 52 C241 62 245 84 245 100 Z" fill="#dcdde6" stroke="#3d3f4c" stroke-width="2.5"/>
+    <path d="M226 96 C226 84 228 70 232 60" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="232" cy="52" rx="16" ry="6" fill="#eef0f6" stroke="#3d3f4c" stroke-width="2.5"/>
+    <ellipse cx="232" cy="52" rx="8" ry="2.5" fill="#2b2140"/>
 
     <!-- llave rotativa (Do/Reb) con su vuelta corta -->
     <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338" fill="none" stroke="#3d3f4c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
