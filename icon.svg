@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="28%" r="85%">
+      <stop offset="0" stop-color="#9b55e0"/>
+      <stop offset="0.55" stop-color="#5e2192"/>
+      <stop offset="1" stop-color="#2a0b45"/>
+    </radialGradient>
+    <linearGradient id="gold" gradientUnits="userSpaceOnUse" x1="0" y1="170" x2="0" y2="350">
+      <stop offset="0" stop-color="#fbe39a"/>
+      <stop offset="0.5" stop-color="#e6b347"/>
+      <stop offset="1" stop-color="#a8741c"/>
+    </linearGradient>
+    <linearGradient id="bell" gradientUnits="userSpaceOnUse" x1="310" y1="0" x2="400" y2="0">
+      <stop offset="0" stop-color="#d9a33c"/>
+      <stop offset="1" stop-color="#fbe39a"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <g transform="translate(-14 0)">
+    <!-- ondas de sonido -->
+    <g fill="none" stroke="#e9d5ff" stroke-linecap="round">
+      <path d="M432 214 q16 42 0 84" stroke-width="13" opacity="0.9"/>
+      <path d="M460 190 q28 66 0 132" stroke-width="11" opacity="0.55"/>
+    </g>
+    <!-- tubo enrollado -->
+    <rect x="104" y="196" width="230" height="124" rx="62" fill="none" stroke="url(#gold)" stroke-width="22"/>
+    <!-- tudel y boquilla -->
+    <path d="M92 320 H230" stroke="#c8902a" stroke-width="20" stroke-linecap="round"/>
+    <path d="M58 306 h22 a6 6 0 0 1 6 6 v16 a6 6 0 0 1 -6 6 h-22 z" fill="#fbe39a"/>
+    <!-- campana -->
+    <path d="M314 185 C350 185 378 160 402 128 C407 122 414 125 414 132 V380 C414 387 407 390 402 384 C378 352 350 331 314 331 Z" fill="url(#bell)"/>
+    <ellipse cx="412" cy="256" rx="11" ry="126" fill="#a8741c"/>
+    <ellipse cx="413" cy="256" rx="5" ry="112" fill="#3d1263" opacity="0.6"/>
+    <!-- llave -->
+    <rect x="196" y="160" width="22" height="38" rx="7" fill="#e6b347"/>
+    <circle cx="207" cy="152" r="15" fill="#fbe39a" stroke="#a8741c" stroke-width="5"/>
+  </g>
+</svg>
