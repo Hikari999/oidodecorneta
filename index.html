@@ -416,12 +416,13 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   let me = null, row = null, saveTimer = null;
 
+  const cap = n => n ? n.charAt(0).toUpperCase() + n.slice(1) : n;
   function showLogin(on){ $("loginView").hidden = !on; }
 
   async function start(session){
     if(!session){ me=null; showLogin(true); return; }
     me = { id: session.user.id, name: (session.user.email||"").split("@")[0] };
-    $("whoName").textContent = "Jugando como " + me.name;
+    $("whoName").textContent = "Jugando como " + cap(me.name);
     showLogin(false);
     const { data } = await sb.from("progress").select("*").eq("user_id", me.id).maybeSingle();
     row = data || { user_id: me.id, username: me.name, best_streak: 0, correct: 0, answered: 0 };
@@ -474,7 +475,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
       const pct = p.answered ? Math.round(100*p.correct/p.answered) + "%" : "–";
       li.innerHTML = '<span class="pos"></span><span class="nm"></span><span><b></b> <small>racha</small></span><small></small>';
       li.querySelector(".pos").textContent = i+1;
-      li.querySelector(".nm").textContent = p.username;
+      li.querySelector(".nm").textContent = cap(p.username);
       li.querySelector("b").textContent = p.best_streak;
       li.lastChild.textContent = pct + " de " + p.answered;
       list.appendChild(li);
