@@ -467,25 +467,60 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   });
   $("logout").addEventListener("click", async () => { await sb.auth.signOut(); start(null); });
 
+  // Varios dispositivos con la misma cuenta: cada uno suma lo que ha jugado (pend)
+  // sobre lo que hay en el servidor, y la mejor racha del día es la mayor de todas.
+  let pend = { correct: 0, answered: 0 }, saving = false;
+
+  async function fetchServer(){
+    const { data, error } = await sb.from("progress").select("*").eq("user_id", me.id).maybeSingle();
+    if(error) return { error };
+    const best = data && dayKey(data.updated_at) === today() ? data.best_streak : 0;
+    return { data, best };
+  }
+
   document.addEventListener("corneta:respuesta", e => {
     if(!me || !row) return;
-    row.answered++; if(e.detail.right) row.correct++;
+    pend.answered++; if(e.detail.right) pend.correct++;
     if(row.day !== today()){ row.day = today(); row.best_streak = 0; window.cornetaSetBest(0); }
     if(e.detail.right && e.detail.full && e.detail.streak > row.best_streak){
       row.best_streak = e.detail.streak; window.cornetaSetBest(row.best_streak);
     }
-    row.username = me.name;
     clearTimeout(saveTimer); saveTimer = setTimeout(save, 1200);
   });
 
   async function save(){
+    if(!me || saving) return;
+    saving = true;
+    const srv = await fetchServer();
+    if(srv.error){ saving = false; $("saveState").textContent = "No se ha podido guardar tu progreso: " + (srv.error.message || "error"); return; }
+    const sent = { ...pend };
+    const best = Math.max(srv.best, row.best_streak);
     const { error } = await sb.from("progress").upsert({
-      user_id: me.id, username: row.username, best_streak: row.best_streak,
-      correct: row.correct, answered: row.answered, updated_at: new Date().toISOString()
+      user_id: me.id, username: me.name, best_streak: best,
+      correct: (srv.data?.correct || 0) + sent.correct,
+      answered: (srv.data?.answered || 0) + sent.answered,
+      updated_at: new Date().toISOString()
     });
-    $("saveState").textContent = error ? "No se ha podido guardar tu progreso: " + (error.message || error.code || "error desconocido") : "Progreso guardado.";
+    saving = false;
+    if(error){ $("saveState").textContent = "No se ha podido guardar tu progreso: " + (error.message || error.code || "error desconocido"); return; }
+    pend.correct -= sent.correct; pend.answered -= sent.answered;
+    row.best_streak = best; window.cornetaSetBest(best);
+    $("saveState").textContent = "Progreso guardado.";
+    loadBoard();
+    if(pend.answered > 0){ clearTimeout(saveTimer); saveTimer = setTimeout(save, 300); }
+  }
+
+  // Recoger lo jugado en otros dispositivos: al volver a la pestaña y cada 15 s
+  async function sync(){
+    if(!me || !row || document.hidden) return;
+    const srv = await fetchServer();
+    if(!srv.error && srv.best > row.best_streak){ row.best_streak = srv.best; window.cornetaSetBest(srv.best); }
+    if(row.day !== today()){ row.day = today(); row.best_streak = srv.best || 0; window.cornetaSetBest(row.best_streak); }
     loadBoard();
   }
+  document.addEventListener("visibilitychange", sync);
+  window.addEventListener("focus", sync);
+  setInterval(sync, 15000);
 
   async function loadBoard(){
     const list = $("boardList");
