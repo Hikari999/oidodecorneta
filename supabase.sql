@@ -1,5 +1,6 @@
 -- Oído de Corneta: tabla de progreso y clasificación
 -- Pegar en Supabase > SQL Editor > New query, y pulsar Run.
+-- Se puede ejecutar varias veces sin problema.
 
 create table if not exists public.progress (
   user_id     uuid primary key default auth.uid() references auth.users on delete cascade,
@@ -11,6 +12,13 @@ create table if not exists public.progress (
 );
 
 alter table public.progress enable row level security;
+
+-- Permiso para que los usuarios con sesión usen la tabla desde la web
+grant select, insert, update on public.progress to authenticated;
+
+drop policy if exists "progress_select" on public.progress;
+drop policy if exists "progress_insert" on public.progress;
+drop policy if exists "progress_update" on public.progress;
 
 -- Cualquiera con sesión iniciada ve la clasificación
 create policy "progress_select" on public.progress
