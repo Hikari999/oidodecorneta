@@ -87,7 +87,7 @@ summary{cursor:pointer;padding:10px 0;font-weight:600}
 .board{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .board h2{font-family:var(--display);font-weight:800;font-size:1.4rem;margin:0 0 8px;text-transform:uppercase}
 .board ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
-.board li{display:grid;grid-template-columns:2em 1fr auto auto;gap:10px;align-items:baseline;padding:7px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.board li{display:grid;grid-template-columns:2em 1fr auto;gap:10px;align-items:baseline;padding:7px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
 .board li:first-child{border-top:0}
 .board li.me{color:var(--brass-ink);font-weight:600}
 .board .pos{font-family:var(--display);font-weight:800;font-size:1.1rem}
@@ -121,7 +121,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   <div class="score">
     <div class="stat"><b id="sCorrect">0</b><small>Aciertos</small></div>
     <div class="stat"><b id="sStreak">0</b><small>Racha</small></div>
-    <div class="stat"><b id="sBest">0</b><small>Mejor racha (completo)</small></div>
+    <div class="stat"><b id="sBest">0</b><small>Mejor racha hoy</small></div>
   </div>
 
   <div class="stage">
@@ -138,9 +138,9 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   <div class="row"><button class="ghost" id="next" hidden>Siguiente nota →</button></div>
 
   <section class="board">
-    <h2>Clasificación</h2>
+    <h2>Clasificación de hoy</h2>
     <ol id="boardList"><li><span></span><span class="nm">Cargando…</span></li></ol>
-    <p class="hint" style="margin-top:8px">Ordenada por mejor racha. La racha solo cuenta jugando con el registro completo (nivel Completo, todas las notas).</p>
+    <p class="hint" style="margin-top:8px">Mejor racha de cada uno hoy, jugando con el registro completo (nivel Completo, todas las notas). Se reinicia cada día a medianoche.</p>
     <p class="hint" id="saveState" style="margin-top:4px"></p>
   </section>
 
@@ -348,7 +348,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
     }
     document.querySelectorAll(".note").forEach(b=>b.disabled=true);
     renderScore();
-    document.dispatchEvent(new CustomEvent("corneta:respuesta",{detail:{right, streak:st.streak, best:st.best}}));
+    document.dispatchEvent(new CustomEvent("corneta:respuesta",{detail:{right, streak:st.streak, best:st.best, full: st.active.length===NOTES.length}}));
     if(right && st.autoNext) nextTimer = setTimeout(newRound, 1100);
     else $("next").hidden = false;
   }
@@ -402,7 +402,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   $("reset").addEventListener("click",()=>{st.correct=st.streak=st.total=0;st.best=0;store.set("best",0);renderScore()});
 
   renderSettings(); renderNotes(); renderScore();
-  window.cornetaSetBest = b => { if(b>st.best){ st.best=b; store.set("best",b); } renderScore(); };
+  window.cornetaSetBest = b => { st.best=b; store.set("best",b); renderScore(); };
   msg("Pulsa «Tocar nota» y elige cuál es. Antes puedes tocar los botones para oír cada nota.","");
 })();
 </script>
@@ -419,6 +419,9 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   let me = null, row = null, saveTimer = null;
 
   const cap = n => n ? n.charAt(0).toUpperCase() + n.slice(1) : n;
+  // Día según la hora de España; la clasificación se reinicia a medianoche
+  const dayKey = d => new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Madrid"}).format(new Date(d));
+  const today = () => dayKey(Date.now());
   function showLogin(on){ $("loginView").hidden = !on; }
 
   async function start(session){
@@ -428,6 +431,9 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
     showLogin(false);
     const { data } = await sb.from("progress").select("*").eq("user_id", me.id).maybeSingle();
     row = data || { user_id: me.id, username: me.name, best_streak: 0, correct: 0, answered: 0 };
+    // La racha es del día: si lo guardado es de otro día, empieza en 0
+    row.day = today();
+    if(!data || dayKey(data.updated_at) !== row.day) row.best_streak = 0;
     window.cornetaSetBest(row.best_streak);
     loadBoard();
   }
@@ -448,7 +454,10 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   document.addEventListener("corneta:respuesta", e => {
     if(!me || !row) return;
     row.answered++; if(e.detail.right) row.correct++;
-    row.best_streak = Math.max(row.best_streak, e.detail.best);
+    if(row.day !== today()){ row.day = today(); row.best_streak = 0; window.cornetaSetBest(0); }
+    if(e.detail.right && e.detail.full && e.detail.streak > row.best_streak){
+      row.best_streak = e.detail.streak; window.cornetaSetBest(row.best_streak);
+    }
     row.username = me.name;
     clearTimeout(saveTimer); saveTimer = setTimeout(save, 1200);
   });
@@ -465,22 +474,22 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   async function loadBoard(){
     const list = $("boardList");
     const { data, error } = await sb.from("progress")
-      .select("user_id,username,best_streak,correct,answered")
-      .order("best_streak", { ascending: false }).order("correct", { ascending: false }).limit(30);
+      .select("user_id,username,best_streak,updated_at")
+      .gte("updated_at", new Date(Date.now() - 36*3600*1000).toISOString())
+      .order("best_streak", { ascending: false }).order("updated_at", { ascending: true }).limit(200);
     list.textContent = "";
-    if(error || !data || !data.length){
+    const rows = (data || []).filter(p => p.best_streak > 0 && dayKey(p.updated_at) === today());
+    if(error || !rows.length){
       const li = document.createElement("li"); li.innerHTML = '<span></span><span class="nm"></span>';
-      li.querySelector(".nm").textContent = error ? "No se pudo cargar la clasificación: " + (error.message || error.code || "") : "Todavía nadie ha jugado. ¡Sé el primero!";
+      li.querySelector(".nm").textContent = error ? "No se pudo cargar la clasificación: " + (error.message || error.code || "") : "Hoy todavía nadie tiene racha en el nivel Completo. ¡Sé el primero!";
       list.appendChild(li); return;
     }
-    data.forEach((p,i) => {
+    rows.forEach((p,i) => {
       const li = document.createElement("li"); if(me && p.user_id===me.id) li.className="me";
-      const pct = p.answered ? Math.round(100*p.correct/p.answered) + "%" : "–";
-      li.innerHTML = '<span class="pos"></span><span class="nm"></span><span><b></b> <small>racha</small></span><small></small>';
+      li.innerHTML = '<span class="pos"></span><span class="nm"></span><span><b></b> <small>racha</small></span>';
       li.querySelector(".pos").textContent = i+1;
       li.querySelector(".nm").textContent = cap(p.username);
       li.querySelector("b").textContent = p.best_streak;
-      li.lastChild.textContent = pct + " de " + p.answered;
       list.appendChild(li);
     });
   }
