@@ -1,104 +1,100 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <radialGradient id="bg" cx="32%" cy="26%" r="90%">
+    <radialGradient id="bg" cx="30%" cy="22%" r="95%">
       <stop offset="0" stop-color="#a868e8"/>
       <stop offset="0.5" stop-color="#5e2192"/>
-      <stop offset="1" stop-color="#22083a"/>
+      <stop offset="1" stop-color="#1e0734"/>
     </radialGradient>
     <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#f6d77c" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#f6d77c" stop-opacity="0"/>
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="gold" gradientUnits="userSpaceOnUse" x1="0" y1="180" x2="0" y2="330">
-      <stop offset="0" stop-color="#fff0b8"/>
-      <stop offset="0.35" stop-color="#f0c35a"/>
-      <stop offset="0.7" stop-color="#c8902a"/>
-      <stop offset="1" stop-color="#8a5a14"/>
+    <!-- metal plateado en sección de tubo -->
+    <linearGradient id="chromeV" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5c5f6e"/>
+      <stop offset="0.18" stop-color="#d9dbe4"/>
+      <stop offset="0.32" stop-color="#ffffff"/>
+      <stop offset="0.5" stop-color="#9a9db0"/>
+      <stop offset="0.78" stop-color="#e6e7ef"/>
+      <stop offset="1" stop-color="#4b4d5c"/>
     </linearGradient>
-    <linearGradient id="bellOut" gradientUnits="userSpaceOnUse" x1="0" y1="125" x2="0" y2="385">
-      <stop offset="0" stop-color="#fff0b8"/>
-      <stop offset="0.3" stop-color="#f0c35a"/>
-      <stop offset="0.65" stop-color="#d49a32"/>
-      <stop offset="1" stop-color="#7d5010"/>
+    <linearGradient id="bell" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4b4d5c"/>
+      <stop offset="0.2" stop-color="#c9cbd6"/>
+      <stop offset="0.38" stop-color="#ffffff"/>
+      <stop offset="0.55" stop-color="#a3a6b8"/>
+      <stop offset="0.8" stop-color="#eef0f6"/>
+      <stop offset="1" stop-color="#55586a"/>
     </linearGradient>
-    <radialGradient id="bellIn" cx="40%" cy="45%" r="60%">
-      <stop offset="0" stop-color="#3a1260"/>
-      <stop offset="0.7" stop-color="#7a4a12"/>
-      <stop offset="1" stop-color="#e0aa45"/>
+    <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#7d8094"/>
+    </linearGradient>
+    <radialGradient id="bellIn" cx="50%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#2b2140"/>
+      <stop offset="0.6" stop-color="#6f6a86"/>
+      <stop offset="1" stop-color="#d7d8e2"/>
     </radialGradient>
-    <linearGradient id="flag" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#8b3fd0"/>
-      <stop offset="1" stop-color="#3e0f66"/>
-    </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#12021f" flood-opacity="0.55"/>
+    <filter id="shadow" x="-30%" y="-20%" width="160%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0d0118" flood-opacity="0.6"/>
     </filter>
   </defs>
 
   <rect width="512" height="512" fill="url(#bg)"/>
-  <!-- pentagrama de fondo -->
-  <g stroke="#ffffff" stroke-opacity="0.07" stroke-width="3">
-    <path d="M0 96 H512 M0 120 H512 M0 144 H512 M0 168 H512 M0 192 H512"/>
-  </g>
-  <circle cx="300" cy="250" r="210" fill="url(#glow)"/>
+  <ellipse cx="256" cy="260" rx="230" ry="230" fill="url(#glow)"/>
+  <ellipse cx="248" cy="462" rx="150" ry="18" fill="#12021f" opacity="0.45"/>
 
   <g filter="url(#shadow)">
-    <!-- banderín de la banda -->
-    <path d="M150 318 H290 V412 L220 440 L150 412 Z" fill="url(#flag)" stroke="#e6b347" stroke-width="5"/>
-    <path d="M150 412 L220 440 L290 412" fill="none" stroke="#fbe39a" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>
-    <path d="M150 318 L144 330 M290 318 L296 330" stroke="#e6b347" stroke-width="5" stroke-linecap="round"/>
-    <!-- nota musical en el banderín -->
-    <g fill="#fbe39a">
-      <ellipse cx="208" cy="396" rx="13" ry="10" transform="rotate(-20 208 396)"/>
-      <rect x="217" y="348" width="6" height="48" rx="2"/>
-      <path d="M223 348 c14 6 22 14 18 30 c-2 -10 -8 -14 -18 -16 z"/>
+    <!-- lazo grande: sube por la izquierda, curva arriba y baja por la derecha -->
+    <path d="M232 300 V176 A62 62 0 0 1 356 176 V318 A46 46 0 0 1 310 364 H296"
+          fill="none" stroke="#3d3f4c" stroke-width="40" stroke-linecap="round"/>
+    <path d="M232 300 V176 A62 62 0 0 1 356 176 V318 A46 46 0 0 1 310 364 H296"
+          fill="none" stroke="#b9bccb" stroke-width="32" stroke-linecap="round"/>
+    <path d="M226 290 V176 A68 68 0 0 1 262 116" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+    <path d="M318 122 A62 62 0 0 1 350 170 V316" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
+    <path d="M364 182 V318" stroke="#5a5c6c" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+
+    <!-- tramo recto izquierdo y derecho con brillo cilíndrico -->
+    <rect x="216" y="176" width="32" height="140" fill="url(#chromeV)"/>
+    <rect x="340" y="176" width="32" height="142" fill="url(#chromeV)"/>
+
+    <!-- anillas decorativas en el tramo derecho -->
+    <g fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="2">
+      <rect x="334" y="250" width="44" height="7" rx="3"/>
+      <rect x="334" y="260" width="44" height="7" rx="3"/>
+      <rect x="334" y="270" width="44" height="7" rx="3"/>
+      <rect x="334" y="280" width="44" height="7" rx="3"/>
     </g>
 
-    <!-- tubo enrollado: contorno, cuerpo dorado y brillo -->
-    <rect x="104" y="188" width="226" height="128" rx="64" fill="none" stroke="#6e460c" stroke-width="28"/>
-    <rect x="104" y="188" width="226" height="128" rx="64" fill="none" stroke="url(#gold)" stroke-width="21"/>
-    <path d="M168 181 H266 A60 60 0 0 1 320 214" fill="none" stroke="#fffbe6" stroke-opacity="0.75" stroke-width="4" stroke-linecap="round"/>
-    <path d="M100 246 A60 60 0 0 1 128 200" fill="none" stroke="#fffbe6" stroke-opacity="0.5" stroke-width="4" stroke-linecap="round"/>
+    <!-- tudel y boquilla -->
+    <rect x="196" y="98" width="14" height="190" rx="5" fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="2"/>
+    <rect x="190" y="150" width="26" height="12" rx="4" fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="2"/>
+    <path d="M190 98 C190 84 194 62 203 52 C212 62 216 84 216 98 Z" fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="2.5"/>
+    <ellipse cx="203" cy="52" rx="16" ry="6" fill="url(#rim)" stroke="#3d3f4c" stroke-width="2.5"/>
+    <ellipse cx="203" cy="52" rx="8" ry="2.5" fill="#2b2140"/>
 
-    <!-- tudel hasta la boquilla -->
-    <path d="M78 316 H230" stroke="#6e460c" stroke-width="24" stroke-linecap="round"/>
-    <path d="M78 316 H230" stroke="#e0aa45" stroke-width="17" stroke-linecap="round"/>
-    <path d="M84 311 H226" stroke="#fff0b8" stroke-opacity="0.8" stroke-width="3.5" stroke-linecap="round"/>
-    <!-- boquilla -->
-    <path d="M40 300 C52 300 58 308 70 309 V323 C58 324 52 332 40 332 Z" fill="#f0c35a" stroke="#6e460c" stroke-width="4" stroke-linejoin="round"/>
-    <ellipse cx="40" cy="316" rx="5" ry="16" fill="#fff0b8" stroke="#6e460c" stroke-width="3"/>
+    <!-- llave rotativa (Do/Reb) con su vuelta corta -->
+    <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338"
+          fill="none" stroke="#3d3f4c" stroke-width="22" stroke-linecap="round"/>
+    <path d="M296 364 C266 364 262 330 278 318 C292 306 312 318 306 338"
+          fill="none" stroke="#c9cbd6" stroke-width="15" stroke-linecap="round"/>
+    <circle cx="288" cy="352" r="26" fill="url(#chromeV)" stroke="#3d3f4c" stroke-width="3"/>
+    <circle cx="288" cy="352" r="16" fill="#e6e7ef" stroke="#7d8094" stroke-width="2"/>
+    <g fill="#5c5f6e"><circle cx="281" cy="346" r="3"/><circle cx="295" cy="346" r="3"/><circle cx="288" cy="360" r="3"/></g>
+    <path d="M276 340 A16 16 0 0 1 300 340" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.9"/>
 
-    <!-- abrazaderas -->
-    <g fill="#fff0b8" stroke="#6e460c" stroke-width="3">
-      <rect x="150" y="303" width="12" height="27" rx="3"/>
-      <rect x="244" y="174" width="12" height="28" rx="3"/>
-      <rect x="244" y="302" width="12" height="28" rx="3"/>
-    </g>
-
-    <!-- llave (Do/Reb) -->
-    <rect x="186" y="150" width="26" height="44" rx="6" fill="url(#gold)" stroke="#6e460c" stroke-width="4"/>
-    <rect x="182" y="146" width="34" height="10" rx="4" fill="#fff0b8" stroke="#6e460c" stroke-width="3"/>
-    <circle cx="199" cy="130" r="17" fill="#fff0b8" stroke="#6e460c" stroke-width="4"/>
-    <circle cx="199" cy="130" r="8" fill="#e0aa45"/>
-    <path d="M199 146 V150" stroke="#6e460c" stroke-width="6"/>
-
-    <!-- campana -->
-    <path d="M318 182 C354 182 382 160 404 124 C408 118 418 120 420 128 L420 384 C418 392 408 394 404 388 C382 352 354 322 318 322 Z"
-          fill="url(#bellOut)" stroke="#6e460c" stroke-width="5" stroke-linejoin="round"/>
-    <path d="M330 194 C362 192 384 172 402 146" fill="none" stroke="#fffbe6" stroke-opacity="0.8" stroke-width="5" stroke-linecap="round"/>
-    <rect x="310" y="176" width="16" height="152" rx="5" fill="#fff0b8" stroke="#6e460c" stroke-width="4"/>
-    <ellipse cx="420" cy="256" rx="20" ry="132" fill="#f0c35a" stroke="#6e460c" stroke-width="5"/>
-    <ellipse cx="421" cy="256" rx="12" ry="118" fill="url(#bellIn)"/>
+    <!-- pabellón (campana) -->
+    <path d="M216 300 H248 C250 360 262 400 330 430 L340 438 H124 L134 430 C202 400 214 360 216 300 Z" fill="url(#bell)" stroke="#3d3f4c" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M224 312 C222 362 210 398 160 424" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+    <ellipse cx="232" cy="438" rx="112" ry="20" fill="url(#rim)" stroke="#3d3f4c" stroke-width="3"/>
+    <ellipse cx="232" cy="438" rx="98" ry="13" fill="url(#bellIn)"/>
+    <path d="M150 432 A100 16 0 0 1 314 432" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.8"/>
   </g>
 
-  <!-- ondas de sonido -->
-  <g fill="none" stroke="#f3e6ff" stroke-linecap="round">
-    <path d="M456 208 q18 48 0 96" stroke-width="10" opacity="0.9"/>
-    <path d="M480 184 q30 72 0 144" stroke-width="8" opacity="0.5"/>
-  </g>
   <!-- destellos -->
   <g fill="#fff6d6">
-    <path d="M372 92 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5 z" opacity="0.9"/>
-    <path d="M96 140 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" opacity="0.7"/>
+    <path d="M404 96 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6 z" opacity="0.95"/>
+    <path d="M112 170 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z" opacity="0.75"/>
+    <path d="M420 330 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" opacity="0.6"/>
   </g>
 </svg>
