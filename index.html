@@ -132,7 +132,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   <div class="stage">
     <button class="bell" id="play">Tocar nota</button>
     <div class="row">
-      <button class="ghost" id="ref">Escuchar Do de referencia</button>
+      <button class="ghost" id="ref">Escuchar Fa de referencia</button>
       <button class="ghost" id="scale">Escuchar escala</button>
     </div>
     <div class="msg" id="msg">Pulsa «Tocar nota» y elige cuál es.</div>
@@ -166,7 +166,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
         <div class="seg" id="chips"></div>
         <p class="hint">Toca una nota para quitarla o añadirla. Mínimo dos. El nivel Sobreagudo entrena Do, Reb, Re, Mib y Fa sobreagudos.</p>
       </div>
-      <label class="chk"><input type="checkbox" id="autoRef"> Tocar el Do de referencia antes de cada nota</label>
+      <label class="chk"><input type="checkbox" id="autoRef"> Tocar el Fa de referencia antes de cada nota</label>
       <label class="chk"><input type="checkbox" id="autoNext" checked> Pasar sola a la siguiente nota al acertar</label>
       <button class="ghost" id="reset" style="align-self:flex-start">Reiniciar marcador</button>
     </div>
@@ -181,6 +181,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   const NOTES = [
     // k:1 = con llave (la serie baja a Reb, medio tono más alta)
     {id:"sol3", name:"Sol", reg:"grave",  h:3, k:0},
+    {id:"lab3", name:"Lab", reg:"grave",  h:3, k:1},
     {id:"do4",  name:"Do",  reg:"",       h:4, k:0},
     {id:"reb4", name:"Reb", reg:"",  h:4, k:1},
     {id:"mi4",  name:"Mi",  reg:"",       h:5, k:0},
@@ -188,10 +189,12 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
     {id:"sol4", name:"Sol", reg:"",       h:6, k:0},
     {id:"lab4", name:"Lab", reg:"",  h:6, k:1},
     {id:"sib4", name:"Sib", reg:"",       h:7, k:0},
+    {id:"si4",  name:"Si",  reg:"",       h:7, k:1},
     {id:"do5",  name:"Do",  reg:"sobreagudo", h:8,  k:0},
     {id:"reb5", name:"Reb", reg:"sobreagudo", h:8,  k:1},
     {id:"re5",  name:"Re",  reg:"sobreagudo", h:9,  k:0},
     {id:"mib5", name:"Mib", reg:"sobreagudo", h:9,  k:1},
+    {id:"mi5",  name:"Mi",  reg:"sobreagudo", h:10, k:0},
     {id:"fa5",  name:"Fa",  reg:"sobreagudo", h:10, k:1},
   ];
   const LEVELS = {
@@ -216,6 +219,8 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
     autoNext: store.get("autoNext",true),
     correct:0, streak:0, total:0, current:null, answered:false
   };
+  // Si hay un nivel elegido, sus notas salen de la lista actual (así incluye notas nuevas)
+  if(st.level && LEVELS[st.level]) st.active = LEVELS[st.level].slice();
 
   const $ = id => document.getElementById(id);
   let ctx = null;
@@ -299,7 +304,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   }
 
   // Afinación temperada, La4 = 440 Hz (número MIDI de cada nota)
-  const MIDI = {sol3:55,do4:60,reb4:61,mi4:64,fa4:65,sol4:67,lab4:68,sib4:70,do5:72,reb5:73,re5:74,mib5:75,fa5:77};
+  const MIDI = {sol3:55,lab3:56,do4:60,reb4:61,mi4:64,fa4:65,sol4:67,lab4:68,sib4:70,si4:71,do5:72,reb5:73,re5:74,mib5:75,mi5:76,fa5:77};
   // La corneta suena una octava por encima de estos números (Sol grave = Sol4, 392 Hz)
   const freqOf = n => 440 * Math.pow(2, (MIDI[n.id] + 12 - 69) / 12);
   function playNotes(list, gap){
@@ -312,9 +317,10 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
   const byId = id => NOTES.find(n=>n.id===id);
 
   // Referencia: el Do más cercano a las notas en juego
-  function refId(){ const p=pool(); return p.filter(n=>n.h>=8).length > p.length/2 ? "do5" : "do4"; }
+  // Nota de referencia: Fa agudo
+  function refId(){ return "fa4"; }
   // Posición de la llave para cada nota, según la agrupación
-  const CERRADO = ["sol3","do4","mi4","sol4","sib4","do5","re5"];
+  const CERRADO = ["sol3","do4","mi4","sol4","sib4","do5","re5","mi5"];
   function pool(){ return NOTES.filter(n=>st.active.includes(n.id)); }
 
   function newRound(){
@@ -388,7 +394,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center;max-width:60ch;marg
       });
       c.appendChild(b);
     });
-    $("ref").textContent = refId()==="do5" ? "Escuchar Do sobreagudo de referencia" : "Escuchar Do de referencia";
+    $("ref").textContent = "Escuchar Fa de referencia";
     $("autoRef").checked = st.autoRef; $("autoNext").checked = st.autoNext;
   }
   function saveAndReset(){
